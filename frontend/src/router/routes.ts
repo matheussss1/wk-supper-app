@@ -17,7 +17,7 @@ export const authenticatedRoutes = [
     }
 ];
 
-export const unauthenticadedRoutes = [
+export const unauthenticatedRoutes = [
     {
         url: '/cadastrar',
         description: 'Se cadastrar no sistema'
