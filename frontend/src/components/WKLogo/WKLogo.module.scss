@@ -1,0 +1,6 @@
+.logoContainer {
+	& > img {
+		max-width: 75px;
+		user-select: none;
+	}
+}

@@ -1,0 +1,19 @@
+.btn {
+	cursor: pointer;
+	user-select: none;
+	outline: 0px;
+	border: 0px;
+	padding: 6px 16px;
+	border-radius: 4px;
+	color: white;
+
+	background-color: var(--background-color_1);
+}
+
+.btn:hover {
+	filter: brightness(95%);
+}
+
+.btn.btn-blue {
+	background-color: var(--blue);
+}

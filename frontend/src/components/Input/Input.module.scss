@@ -1,0 +1,27 @@
+.inputContainer {
+	position: relative;
+
+	& > input {
+		padding: 8.5px 14px;
+		font-size: 1rem;
+	}
+
+	& > label {
+		top: 0;
+		left: 0;
+		position: absolute;
+		transform: translate(16px, 9px) scale(1);
+		transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+			transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+			max-width 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+		width: fit-content;
+	}
+
+	& > input:focus ~ label,
+	& > input:not(:placeholder-shown) ~ label {
+		transform: translate(5px, -11px) scale(0.8);
+		background-color: white;
+		padding: 0 6px;
+		color: var(--blue);
+	}
+}
