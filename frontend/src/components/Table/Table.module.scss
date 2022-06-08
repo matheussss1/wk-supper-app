@@ -1,0 +1,77 @@
+.tableHeader,
+.tableCell {
+	padding: 1rem 2rem;
+}
+
+.tableHeader {
+	text-align: left;
+	color: var(--primary-color);
+	background-color: var(--background-color_2);
+}
+
+.tableRow {
+	cursor: pointer;
+
+	&:nth-of-type(even) {
+		background-color: rgb(235, 235, 236);
+		color: var(--background-color_1);
+	}
+
+	&:nth-of-type(odd):not(:first-of-type) {
+		background-color: rgb(215, 215, 216);
+	}
+
+	&:hover {
+		filter: brightness(95%);
+	}
+}
+
+.table {
+	width: 100%;
+	border-radius: 4px;
+	border-collapse: collapse;
+
+	box-shadow: 0px 6px 0px 0px var(--background-color_2);
+}
+
+@media screen and (max-width: 1000px) {
+	.tableRow {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 10px;
+		border-radius: 6px;
+		overflow: hidden;
+
+		&:nth-of-type(even) {
+			background-color: unset;
+		}
+
+		&:nth-of-type(odd) {
+			background-color: unset;
+		}
+	}
+
+	.tableHeader {
+		display: none;
+	}
+
+	.tableCell {
+		display: flex;
+		justify-content: space-between;
+		border-bottom: 1px solid black;
+
+		&::before {
+			content: attr(data-label);
+			font-weight: bold;
+		}
+
+		&:nth-of-type(even) {
+			background-color: rgb(235, 235, 236);
+			color: var(--background-color_1);
+		}
+
+		&:nth-of-type(odd) {
+			background-color: rgb(215, 215, 216);
+		}
+	}
+}
