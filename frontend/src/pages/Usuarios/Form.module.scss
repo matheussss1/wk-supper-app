@@ -1,0 +1,15 @@
+.form_container {
+	padding: 2rem;
+}
+.form {
+	padding: 1rem;
+	border-radius: 4px;
+
+	background-color: var(--primary-color);
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+
+	max-width: 1000px;
+	margin: 0 auto;
+}
