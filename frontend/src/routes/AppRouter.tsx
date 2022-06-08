@@ -17,7 +17,7 @@ function AppRouter() {
 		: unauthenticatedRoutes;
 
 	return (
-		<div>
+		<>
 			<BrowserRouter>
 				<Routes>
 					<Route element={<BaseLayout />}>
@@ -32,7 +32,7 @@ function AppRouter() {
 				</Routes>
 			</BrowserRouter>
 			{authenticated && <NovaChaveDeAcessoModal />}
-		</div>
+		</>
 	);
 }
 
