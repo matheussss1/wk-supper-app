@@ -4,6 +4,7 @@ import Cadastro from "../pages/Cadastro";
 
 import FormUsuarios from "../pages/Usuarios/Form";
 import Usuarios from "../pages/Usuarios/List";
+import ValidarLogin from "../pages/ValidarLogin";
 
 export const authenticatedRoutes = [
 	{
@@ -28,6 +29,11 @@ export const unauthenticatedRoutes = [
 		url: "/cadastrar",
 		description: "Se cadastrar no sistema",
 		Component: <Cadastro />,
+	},
+	{
+		url: "/login/:token",
+		description: "Validar Login",
+		Component: <ValidarLogin />,
 	},
 	{
 		url: "*",

@@ -2,11 +2,16 @@ import Modal from "../../../components/Modal";
 import useModal from "../../../hooks/useModal";
 import styles from "./NovaChaveDeAcessoModal.module.scss";
 import ClickToCopy from "../../../components/CopyArea";
+import { useContext } from "react";
+import { UserContext } from "../../../context/UserContext";
 
 function NovaChaveDeAcessoModal() {
+	const {
+		user: { nextToken },
+	} = useContext(UserContext);
 	const { isOpen, onClick } = useModal(true);
-	const url =
-		"http://www.google.com.br/oiASODKJ1293I1290Sa!@#!@#!@#!@-0-123AHDIOASJDIASOJDSAIOJDAS";
+
+	const url = `http://localhost:3000/login/${nextToken!}`;
 
 	return (
 		<Modal isOpen={isOpen} onClick={onClick}>

@@ -29,27 +29,27 @@ export function FormInput({
 	formErrors,
 }: FormInputProps) {
 	const [isError, setIsError] = useState(false);
-	const formInput = useForm(useFormConfig);
+	const { error, setError, ...restUseFormConfig } = useForm(useFormConfig);
 	const formError = formErrors
 		?.filter((formError) => formError.name === useFormConfig.name)
 		.shift();
 
 	useEffect(() => {
-		if (!formInput.error) setIsError(false);
+		if (!error) setIsError(false);
 
 		if (formError) {
 			return setIsError(true);
 		}
 
 		return setIsError(true);
-	}, [formInput.error, formErrors]);
+	}, [error, formErrors]);
 
 	return (
 		<>
-			<Input {...inputConfig} {...formInput} {...formErrors} />
+			<Input {...inputConfig} {...restUseFormConfig} />
 			{isError && (
 				<small className={styles.formError}>
-					<span>{formInput.error || formError?.error}</span>
+					<span>{error || formError?.error}</span>
 				</small>
 			)}
 		</>

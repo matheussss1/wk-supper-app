@@ -31,7 +31,7 @@ const fields: FormInputProps[] = [
 		inputConfig: { placeholder: "Nome", type: "text", required: true },
 	},
 	{
-		useFormConfig: { name: "email" },
+		useFormConfig: { name: "username" },
 		inputConfig: { placeholder: "Email", type: "email", required: true },
 	},
 	{
@@ -50,10 +50,8 @@ function FormUsuarios() {
 		const formData = Object.fromEntries(
 			new FormData(event.target as HTMLFormElement).entries()
 		);
+
 		const errors = [];
-		if (formData.email === "a@teste.com") {
-			errors.push({ name: "email", error: "Email já cadastrado" });
-		}
 
 		setFormErrors(errors);
 	};
@@ -63,7 +61,11 @@ function FormUsuarios() {
 			<form className={styles.form} onSubmit={handleFormSubmit}>
 				<h2>Cadastro de usuários</h2>
 				{fields.map((field) => (
-					<FormInput {...field} formErrors={formErrors} />
+					<FormInput
+						{...field}
+						key={field.useFormConfig.name}
+						formErrors={formErrors}
+					/>
 				))}
 				<Button>Cadastrar</Button>
 			</form>

@@ -1,41 +1,58 @@
-import { FormEvent, useContext, useState } from "react";
-
-import { UserContext } from "../../context/UserContext";
-
-import useForm from "../../hooks/useForm";
-
+import { FormEvent, useState } from "react";
 import { FormInput, FormInputProps } from "../../components/Input";
 import WKLogo from "../../components/WKLogo";
 import Button from "../../components/Button";
 
 import styles from "./Cadastro.module.scss";
+import { useNavigate } from "react-router-dom";
 
 const fields: FormInputProps[] = [
 	{
-		useFormConfig: { name: "email" },
+		useFormConfig: { name: "username" },
 		inputConfig: { placeholder: "Email", type: "email", required: true },
 	},
 ];
 
 function Cadastro() {
-	const { setUser } = useContext(UserContext);
+	const navigate = useNavigate();
 	const [formErrors, setFormErrors] = useState<
 		{ name: string; error: string }[]
 	>([]);
 
-	const handleFormSubmit = (event: FormEvent) => {
+	const handleFormSubmit = async (event: FormEvent) => {
 		event.preventDefault();
-		const formData: any = Object.fromEntries(
-			new FormData(event.target as HTMLFormElement).entries()
-		);
-		const errors = [];
+		const formData: any = {
+			...Object.fromEntries(
+				new FormData(event.target as HTMLFormElement).entries()
+			),
+			password: "c#123!!@_+=Y09llOi@",
+		};
 
-		if (formData.email === "a@teste.com") {
-			errors.push({ name: "email", error: "Email já cadastrado" });
+		try {
+			const response = await fetch("http://localhost:8000/api/user/", {
+				method: "POST",
+				body: JSON.stringify(formData),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+			if (response.status === 201) {
+				const jsonReponse = await response.json();
+				return navigate(`/login/${jsonReponse.token}`);
+			}
+
+			if (response.status === 400) {
+				return setFormErrors([
+					{
+						name: "username",
+						error: "Email já cadastrado no sistema",
+					},
+				]);
+			}
+			throw new Error();
+		} catch (e) {
+			window.alert("Falha ao se comunicar com o servidor");
 		}
-
-		if (errors.length) return setFormErrors(errors);
-		setUser({ authenticated: true, email: formData.email });
 	};
 
 	return (
@@ -44,7 +61,11 @@ function Cadastro() {
 				<WKLogo />
 				<div className={styles.formInputs}>
 					{fields.map((field) => (
-						<FormInput {...field} formErrors={formErrors} />
+						<FormInput
+							{...field}
+							key={field.useFormConfig.name}
+							formErrors={formErrors}
+						/>
 					))}
 					<Button>Cadastrar</Button>
 				</div>

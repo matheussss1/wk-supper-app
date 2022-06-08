@@ -2,12 +2,12 @@ import React, { createContext, SetStateAction, useState } from "react";
 
 interface User {
 	authenticated: boolean;
-	email: string | null;
+	nextToken: string | null;
 }
 
 const userInitialState: User = {
 	authenticated: false,
-	email: null,
+	nextToken: null,
 };
 
 export const UserContext = createContext<{
