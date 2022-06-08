@@ -1,7 +1,10 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Modal from "../components/Modal";
 import { UserContext } from "../context/UserContext";
+import useModal from "../hooks/useModal";
 import BaseLayout from "../pages/BaseLayout";
+import NovaChaveDeAcessoModal from "../pages/Modals/NovaChaveDeAcesso";
 import { authenticatedRoutes, unauthenticatedRoutes } from "./config.routes";
 
 function AppRouter() {
@@ -14,19 +17,22 @@ function AppRouter() {
 		: unauthenticatedRoutes;
 
 	return (
-		<BrowserRouter>
-			<Routes>
-				<Route element={<BaseLayout />}>
-					{availableResoures.map((route) => (
-						<Route
-							key={route.url}
-							path={route.url}
-							element={route.Component}
-						/>
-					))}
-				</Route>
-			</Routes>
-		</BrowserRouter>
+		<div>
+			<BrowserRouter>
+				<Routes>
+					<Route element={<BaseLayout />}>
+						{availableResoures.map((route) => (
+							<Route
+								key={route.url}
+								path={route.url}
+								element={route.Component}
+							/>
+						))}
+					</Route>
+				</Routes>
+			</BrowserRouter>
+			{authenticated && <NovaChaveDeAcessoModal />}
+		</div>
 	);
 }
 
