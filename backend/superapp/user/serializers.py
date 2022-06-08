@@ -7,7 +7,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Usuario
-        fields = ['token', 'username', 'password']
+        fields = ['token', 'username', 'password', 'cpf', 'telefone', 'data_nascimento', 'id', 'nome']
 
     def create(self, validated_data):
         user = super(UserSerializer, self).create(validated_data)
@@ -16,5 +16,10 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
     def get_auth_token(self, objc):
-        token = Token.objects.create(user_id=objc.id)
-        return token.key
+        try:
+            token = Token.objects.create(user_id=objc.id)
+            return token.key
+        except: 
+            return ""
+
+        
