@@ -5,7 +5,7 @@ interface TButton extends ButtonHTMLAttributes<HTMLButtonElement> {
 	color?: "blue" | "danger";
 }
 
-function Button({children, color, ...props }: TButton) {
+function Button({ children, color, ...props }: TButton) {
 	const elementStyle = `${styles.btn} ${styles[`btn-${color}`] ?? ""} ${
 		props.className ?? ""
 	}`;

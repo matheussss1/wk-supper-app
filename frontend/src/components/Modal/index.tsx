@@ -17,8 +17,9 @@ function Modal({ isOpen, children, onClick }: Modal) {
 				{children}
 			</div>
 		</div>,
-		MODAL_DOM, 'modal-1'
+		MODAL_DOM,
+		"modal-1"
 	);
-};
+}
 
 export default Modal;
