@@ -11,8 +11,8 @@ import Button from "../../components/Button";
 import styles from "./Cadastro.module.scss";
 
 function Cadastro() {
-	const emailRef = useForm("teste@teste.com");
-	const passwordRef = useForm("teste@teste.com");
+	const emailRef = useForm({ defaultValue: "teste@teste.com" });
+	const passwordRef = useForm({ defaultValue: "teste@teste.com" });
 	const { setUser } = useContext(UserContext);
 
 	const handleFormSubmit = (event: FormEvent) => {

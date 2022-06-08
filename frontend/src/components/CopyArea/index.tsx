@@ -8,6 +8,7 @@ function ClickToCopy({ url }: { url: string }) {
     const [isCopyed, setCopyed] = useState(false);
 
     const toggleCoppied = () => {
+        navigator.clipboard.writeText(url);
         !isCopyed && setCopyed(!isCopyed);
     };
 
