@@ -6,7 +6,7 @@ interface User {
 }
 
 const userInitialState: User = {
-	authenticated: true,
+	authenticated: false,
 	nextToken: null,
 };
 
