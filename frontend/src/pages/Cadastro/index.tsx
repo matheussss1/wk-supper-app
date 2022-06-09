@@ -1,72 +1,89 @@
-import { FormEvent, useState } from "react";
-import { FormInput, FormInputProps } from "../../components/Input";
-import WKLogo from "../../components/WKLogo";
-import Button from "../../components/Button";
+import { useNavigate } from "react-router-dom";
+import { FieldValue, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 import styles from "./Cadastro.module.scss";
-import { useNavigate } from "react-router-dom";
 
-const fields: FormInputProps[] = [
-	{
-		useFormConfig: { name: "username" },
-		inputConfig: { placeholder: "Email", type: "email", required: true },
-	},
-];
+import Input from "../../components/Input";
+import WKLogo from "../../components/WKLogo";
+import Button from "../../components/Button";
+import { API_URLS } from "../../routes/api.config";
+
+interface CadastroForm {
+	username: string;
+	nome: string;
+}
+
+const validationSchema = yup.object({
+	username: yup
+		.string()
+		.email("Insira um email válido")
+		.required("Campo obrigatório"),
+	nome: yup
+		.string()
+		.required("Campo obrigatório")
+		.matches(/[aA-zZ]{3,} [aA-zZ]{3,}/, "Insira o nome completo"),
+});
 
 function Cadastro() {
 	const navigate = useNavigate();
-	const [formErrors, setFormErrors] = useState<
-		{ name: string; error: string }[]
-	>([]);
+	const {
+		register,
+		formState: { errors },
+		setError,
+		handleSubmit,
+	} = useForm({
+		resolver: yupResolver(validationSchema),
+	});
 
-	const handleFormSubmit = async (event: FormEvent) => {
-		event.preventDefault();
-		const formData: any = {
-			...Object.fromEntries(
-				new FormData(event.target as HTMLFormElement).entries()
-			),
-			password: "c#123!!@_+=Y09llOi@",
-		};
-
-		try {
-			const response = await fetch("http://localhost:8000/api/user/", {
-				method: "POST",
-				body: JSON.stringify(formData),
-				headers: {
-					"Content-Type": "application/json",
-				},
-			});
-			if (response.status === 201) {
-				const jsonReponse = await response.json();
-				return navigate(`/login/${jsonReponse.token}`);
-			}
-
-			if (response.status === 400) {
-				return setFormErrors([
-					{
-						name: "username",
-						error: "Email já cadastrado no sistema",
+	const onSubmit = (formData: FieldValue<CadastroForm>) => {
+		(async () => {
+			try {
+				const response = await fetch(API_URLS.user, {
+					method: "POST",
+					body: JSON.stringify({
+						...(formData as {}),
+						password: "!@#Aasd!@#123",
+					}),
+					headers: {
+						"Content-Type": "application/json",
 					},
-				]);
+				});
+				if (response.status === 201) {
+					const jsonReponse = await response.json();
+					return navigate(`/login/${jsonReponse.token}`);
+				}
+
+				if (response.status === 400) {
+					return setError("username", {
+						message: "Email já cadastrado no sistema.",
+					});
+				}
+			} catch (e) {
+				window.alert("Falha ao se comunicar com o servidor");
 			}
-			throw new Error();
-		} catch (e) {
-			window.alert("Falha ao se comunicar com o servidor");
-		}
+		})();
 	};
 
 	return (
 		<main className={styles.wrapper}>
-			<form onSubmit={handleFormSubmit} className={styles.form_cadastro}>
+			<form
+				onSubmit={handleSubmit(onSubmit)}
+				className={styles.form_cadastro}
+			>
 				<WKLogo />
 				<div className={styles.formInputs}>
-					{fields.map((field) => (
-						<FormInput
-							{...field}
-							key={field.useFormConfig.name}
-							formErrors={formErrors}
-						/>
-					))}
+					<Input
+						placeholder="Email"
+						{...register("username")}
+						error={errors.username?.message}
+					/>
+					<Input
+						placeholder="Nome"
+						{...register("nome")}
+						error={errors.nome?.message}
+					/>
 					<Button>Cadastrar</Button>
 				</div>
 				<small>

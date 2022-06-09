@@ -7,11 +7,11 @@ import Table, {
 } from "../../components/Table";
 import { API_URLS } from "../../routes/api.config";
 import styles from "./List.module.scss";
-import { Users } from "./Users";
+import { User } from "./Users";
 
 function ListUsuarios() {
 	const navigate = useNavigate();
-	const [users, setUsers] = useState<Users[]>([]);
+	const [users, setUsers] = useState<User[]>([]);
 	const hasUsers = users.length;
 
 	const goToForm = (id: number) => navigate(`/usuarios/${id}`);

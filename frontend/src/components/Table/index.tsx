@@ -37,7 +37,7 @@ export function TableCell({
 function Table({ children, ...props }: TableHTMLAttributes<HTMLTableElement>) {
 	return (
 		<table className={styles.table} {...props}>
-			{children}
+			<tbody>{children}</tbody>
 		</table>
 	);
 }
