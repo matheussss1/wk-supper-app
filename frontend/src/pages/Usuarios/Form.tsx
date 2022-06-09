@@ -4,11 +4,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import Button from "../../components/Button";
-import Input from "../../components/Input";
-
 import { User } from "./Users";
 import styles from "./Form.module.scss";
+
+import Button from "../../components/Button";
+import Input from "../../components/Input";
 
 import { API_URLS } from "../../routes/api.config";
 import { formatCpf, formatPhone } from "../../utils/format";
@@ -32,7 +32,7 @@ const validationSchema = yup.object({
 			}
 			return true;
 		}),
-	phone: yup
+	telefone: yup
 		.string()
 		.nullable()
 		.test("telefone", "Insira o telefone completo", (value) => {
@@ -53,7 +53,7 @@ function FormUsuarios() {
 		data_nascimento: user?.data_nascimento,
 		nome: user?.nome,
 		username: user?.username,
-		phone: user?.telefone,
+		telefone: user?.telefone,
 	};
 	const {
 		register,
@@ -92,6 +92,22 @@ function FormUsuarios() {
 				}
 			} catch (e) {
 				window.alert("Falha ao se comunicar com o servidor");
+			}
+		})();
+	};
+
+	const handleDelete = () => {
+		if (!id) return;
+		(async () => {
+			try {
+				await fetch(`${API_URLS.user}/${id}`, {
+					method: "DELETE",
+				});
+				alert("Usuario deletado com sucesso");
+			} catch {
+				alert("Erro ao se conectar com o servidor");
+			} finally {
+				navigate("/");
 			}
 		})();
 	};
@@ -145,8 +161,8 @@ function FormUsuarios() {
 						/>
 						<Input
 							placeholder="Telefone"
-							{...register("phone")}
-							error={errors.phone?.message}
+							{...register("telefone")}
+							error={errors.telefone?.message}
 							maxLength={15}
 							onChange={(e) => {
 								e.target.value = formatPhone(e.target.value);
@@ -158,12 +174,21 @@ function FormUsuarios() {
 							type="date"
 							error={errors.data_nascimento?.message}
 						/>
-						<Button>Editar</Button>
+						<div>
+							<Button>Editar</Button>
+							<Button
+								color="danger"
+								type="button"
+								onClick={handleDelete}
+							>
+								Excluir
+							</Button>
+							<Button color="blue" onClick={() => navigate("/")}>
+								Voltar
+							</Button>
+						</div>
 					</>
 				)}
-				<Button type="button" onClick={() => navigate("/")}>
-					Voltar
-				</Button>
 			</form>
 		</div>
 	);

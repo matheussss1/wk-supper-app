@@ -12,4 +12,10 @@
 
 	max-width: 1000px;
 	margin: 0 auto;
+
+	& > div:last-child {
+		display: flex;
+		flex-direction: row-reverse;
+		gap: 20px;
+	}
 }

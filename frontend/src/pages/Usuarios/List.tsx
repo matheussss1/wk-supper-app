@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import styles from "./List.module.scss";
+import { User } from "./Users";
+
 import Table, {
 	TableCell,
 	TableHeader,
 	TableRow,
 } from "../../components/Table";
 import { API_URLS } from "../../routes/api.config";
-import styles from "./List.module.scss";
-import { User } from "./Users";
 
 function ListUsuarios() {
 	const navigate = useNavigate();
@@ -37,7 +39,7 @@ function ListUsuarios() {
 						<TableHeader>Documento</TableHeader>
 						<TableHeader>Telefone</TableHeader>
 					</TableRow>
-					{(!users && (
+					{(!hasUsers && (
 						<TableRow>
 							<TableCell {...{ colspan: 10 }}>
 								{"Nenhum usuário encontrado."}

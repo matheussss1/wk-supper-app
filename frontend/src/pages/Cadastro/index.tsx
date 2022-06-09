@@ -90,7 +90,7 @@ function Cadastro() {
 					Para acessar o sistema é necessario um link de acesso único.
 					<br />
 					Não possui um link?{" "}
-					<a href="">Entre em contato com o suporte ao cliente.</a>
+					<a href="#">Entre em contato com o suporte ao cliente.</a>
 				</small>
 			</form>
 		</main>

@@ -1,8 +1,11 @@
+import { useContext } from "react";
+
+import styles from "./NovaChaveDeAcessoModal.module.scss";
+
 import Modal from "../../../components/Modal";
 import useModal from "../../../hooks/useModal";
-import styles from "./NovaChaveDeAcessoModal.module.scss";
+import { API_URLS } from "../../../routes/api.config";
 import ClickToCopy from "../../../components/CopyArea";
-import { useContext } from "react";
 import { UserContext } from "../../../context/UserContext";
 
 function NovaChaveDeAcessoModal() {
@@ -11,7 +14,7 @@ function NovaChaveDeAcessoModal() {
 	} = useContext(UserContext);
 	const { isOpen, onClick } = useModal(true);
 
-	const url = `http://localhost:3000/login/${nextToken!}`;
+	const url = `${API_URLS.login}/${nextToken!}`;
 
 	return (
 		<Modal isOpen={isOpen} onClick={onClick}>
