@@ -9,19 +9,21 @@
 
 ### Frontend:
 
-    - cd frontend && npm install
+    - cd frontend 
+    - npm install
 
 ### Backend:
 
     - cd backend
     - pip install virtualenv
-    - python3 -m venv venv
+    - python (ou python3 caso esteja no linux) -m venv venv 
 
 ## Executando o projeto:
 
 ### Frontend:
 
-    cd frontend && npm run dev
+    cd frontend
+    npm run dev
 
 ### Backend:
 
@@ -40,8 +42,8 @@ Caso deseje deixar habilitado a execução de scripts direto utilize
 Para mais informações sobre os comandos: [leia aqui.](https://stackoverflow.com/questions/18713086/virtualenv-wont-activate-on-windows/18713789)
 
 E no Windows então execute:
-
-    ./venv/Script/activate
+    cd backend
+    ./venv/Scripts/activate
 
 Caso esteja no linux execute:
 
