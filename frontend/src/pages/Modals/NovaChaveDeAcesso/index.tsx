@@ -14,7 +14,7 @@ function NovaChaveDeAcessoModal() {
 	} = useContext(UserContext);
 	const { isOpen, onClick } = useModal(true);
 
-	const url = `${window.location.origin}/${nextToken!}/`;
+	const url = `${window.location.origin}/login/${nextToken!}/`;
 
 	return (
 		<Modal isOpen={isOpen} onClick={onClick}>
